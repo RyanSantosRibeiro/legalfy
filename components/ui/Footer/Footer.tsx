@@ -1,112 +1,67 @@
+
+import React from 'react';
 import Link from 'next/link';
 
-import Logo from '@/components/icons/Logo';
-import GitHub from '@/components/icons/GitHub';
-
-export default function Footer() {
+const Footer = () => {
   return (
-    <footer className="mx-auto max-w-[1920px] px-6 bg-zinc-900">
-      <div className="grid grid-cols-1 gap-8 py-12 text-white transition-colors duration-150 border-b lg:grid-cols-12 border-zinc-600 bg-zinc-900">
-        <div className="col-span-1 lg:col-span-2">
-          <Link
-            href="/"
-            className="flex items-center flex-initial font-bold md:mr-24"
-          >
-            <span className="mr-2 border rounded-full border-zinc-700">
-              <Logo />
-            </span>
-            <span>ACME</span>
-          </Link>
-        </div>
-        <div className="col-span-1 lg:col-span-2">
-          <ul className="flex flex-col flex-initial md:flex-1">
-            <li className="py-3 md:py-0 md:pb-4">
-              <Link
-                href="/"
-                className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
-              >
-                Home
-              </Link>
-            </li>
-            <li className="py-3 md:py-0 md:pb-4">
-              <Link
-                href="/"
-                className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
-              >
-                About
-              </Link>
-            </li>
-            <li className="py-3 md:py-0 md:pb-4">
-              <Link
-                href="/"
-                className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
-              >
-                Careers
-              </Link>
-            </li>
-            <li className="py-3 md:py-0 md:pb-4">
-              <Link
-                href="/"
-                className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
-              >
-                Blog
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className="col-span-1 lg:col-span-2">
-          <ul className="flex flex-col flex-initial md:flex-1">
-            <li className="py-3 md:py-0 md:pb-4">
-              <p className="font-bold text-white transition duration-150 ease-in-out hover:text-zinc-200">
-                LEGAL
-              </p>
-            </li>
-            <li className="py-3 md:py-0 md:pb-4">
-              <Link
-                href="/"
-                className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
-              >
-                Privacy Policy
-              </Link>
-            </li>
-            <li className="py-3 md:py-0 md:pb-4">
-              <Link
-                href="/"
-                className="text-white transition duration-150 ease-in-out hover:text-zinc-200"
-              >
-                Terms of Use
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className="flex items-start col-span-1 text-white lg:col-span-6 lg:justify-end">
-          <div className="flex items-center h-10 space-x-6">
-            <a
-              aria-label="Github Repository"
-              href="https://github.com/vercel/nextjs-subscription-payments"
-            >
-              <GitHub />
-            </a>
+    <footer className="bg-navy text-white py-16 px-6">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="col-span-1 md:col-span-1">
+            <Link href="/" className="flex items-center">
+              <span className="  text-xl font-bold">Legal<span className="text-gold">Bridge</span></span>
+            </Link>
+            <p className="mt-4 text-sm text-gray-300">
+              Streamline your legal practice with our intuitive case management system.
+            </p>
+          </div>
+
+          <div className="col-span-1">
+            <h4 className="  text-lg font-semibold mb-4">Platform</h4>
+            <ul className="space-y-2">
+              <li><Link href="/dashboard" className="text-sm text-gray-300 hover:text-white smooth-transition">Dashboard</Link></li>
+              <li><Link href="/cases" className="text-sm text-gray-300 hover:text-white smooth-transition">Cases</Link></li>
+              <li><Link href="/" className="text-sm text-gray-300 hover:text-white smooth-transition">Features</Link></li>
+              <li><Link href="/" className="text-sm text-gray-300 hover:text-white smooth-transition">Pricing</Link></li>
+            </ul>
+          </div>
+
+          <div className="col-span-1">
+            <h4 className="  text-lg font-semibold mb-4">Resources</h4>
+            <ul className="space-y-2">
+              <li><a href="#" className="text-sm text-gray-300 hover:text-white smooth-transition">Help Center</a></li>
+              <li><a href="#" className="text-sm text-gray-300 hover:text-white smooth-transition">Documentation</a></li>
+              <li><a href="#" className="text-sm text-gray-300 hover:text-white smooth-transition">API Reference</a></li>
+              <li><a href="#" className="text-sm text-gray-300 hover:text-white smooth-transition">Tutorials</a></li>
+            </ul>
+          </div>
+
+          <div className="col-span-1">
+            <h4 className="  text-lg font-semibold mb-4">Company</h4>
+            <ul className="space-y-2">
+              <li><a href="#" className="text-sm text-gray-300 hover:text-white smooth-transition">About</a></li>
+              <li><a href="#" className="text-sm text-gray-300 hover:text-white smooth-transition">Blog</a></li>
+              <li><a href="#" className="text-sm text-gray-300 hover:text-white smooth-transition">Careers</a></li>
+              <li><a href="#" className="text-sm text-gray-300 hover:text-white smooth-transition">Contact</a></li>
+            </ul>
           </div>
         </div>
-      </div>
-      <div className="flex flex-col items-center justify-between py-12 space-y-4 md:flex-row bg-zinc-900">
-        <div>
-          <span>
-            &copy; {new Date().getFullYear()} ACME, Inc. All rights reserved.
-          </span>
-        </div>
-        <div className="flex items-center">
-          <span className="text-white">Crafted by</span>
-          <a href="https://vercel.com" aria-label="Vercel.com Link">
-            <img
-              src="/vercel.svg"
-              alt="Vercel.com Logo"
-              className="inline-block h-6 ml-4 text-white"
-            />
-          </a>
+
+        <div className="mt-12 pt-8 border-t border-gray-700">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-sm text-gray-400">
+              &copy; {new Date().getFullYear()} LegalBridge. All rights reserved.
+            </p>
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              <a href="#" className="text-sm text-gray-400 hover:text-white smooth-transition">Privacy Policy</a>
+              <a href="#" className="text-sm text-gray-400 hover:text-white smooth-transition">Terms of Service</a>
+              <a href="#" className="text-sm text-gray-400 hover:text-white smooth-transition">Cookie Policy</a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

@@ -28,7 +28,7 @@ body {
     'Helvetica', sans-serif;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
-  @apply text-white bg-zinc-800 antialiased;
+  @apply text-navy bg-zinc-800 antialiased;
 }
 
 body {
@@ -56,4 +56,34 @@ p a {
 
 .height-screen-helper {
   min-height: calc(100vh - 80px);
+}
+
+/* Animation classes for HomePage */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.animate-fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shadow-elegant {
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-soft {
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.05);
+}
+
+/* Update background color for light mode */
+html,
+body {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue',
+    'Helvetica', sans-serif;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  @apply text-navy bg-white antialiased;
 }

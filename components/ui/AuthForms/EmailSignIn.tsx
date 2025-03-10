@@ -37,7 +37,7 @@ export default function EmailSignIn({
       >
         <div className="grid gap-2">
           <div className="grid gap-1">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
             <input
               id="email"
               placeholder="name@example.com"
@@ -46,13 +46,13 @@ export default function EmailSignIn({
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
-              className="w-full p-3 rounded-md bg-zinc-800"
+              className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
             />
           </div>
           <Button
             variant="slim"
             type="submit"
-            className="mt-1"
+            className="mt-3"
             loading={isSubmitting}
             disabled={disableButton}
           >
@@ -61,18 +61,18 @@ export default function EmailSignIn({
         </div>
       </form>
       {allowPassword && (
-        <>
+        <div className="space-y-2 mt-4">
           <p>
-            <Link href="/signin/password_signin" className="font-light text-sm">
+            <Link href="/signin/password_signin" className="text-sm text-navy hover:text-gold transition-colors">
               Sign in with email and password
             </Link>
           </p>
           <p>
-            <Link href="/signin/signup" className="font-light text-sm">
+            <Link href="/signin/signup" className="text-sm text-navy hover:text-gold transition-colors">
               Don't have an account? Sign up
             </Link>
           </p>
-        </>
+        </div>
       )}
     </div>
   );

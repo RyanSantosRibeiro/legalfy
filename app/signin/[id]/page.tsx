@@ -55,7 +55,7 @@ export default async function SignIn({
   }
 
   return (
-    <div className="flex justify-center height-screen-helper">
+    <div className="flex justify-center height-screen-helper bg-gray-50">
       <div className="flex flex-col justify-between max-w-lg p-3 m-auto w-80 ">
         <div className="flex justify-center pb-12 ">
           <Logo width="64px" height="64px" />
@@ -106,6 +106,11 @@ export default async function SignIn({
               </>
             )}
         </Card>
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-500">
+            &copy; {new Date().getFullYear()} LegalBridge. All rights reserved.
+          </p>
+        </div>
       </div>
     </div>
   );
