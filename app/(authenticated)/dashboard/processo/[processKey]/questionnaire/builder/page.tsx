@@ -16,6 +16,7 @@ import {
   Settings,
   Eye
 } from 'lucide-react';
+import { Json } from '@/types/supabase';
 
 // Tipos de campos suportados
 type FieldType = 'text' | 'textarea' | 'number' | 'boolean' | 'select' | 'date' | 'email';
@@ -42,7 +43,7 @@ interface QuestionField {
 interface QuestionnaireTemplate {
   id?: string;
   title: string;
-  description?: string;
+  description: string | null;
   process_type: string;
   fields: QuestionField[];
   created_at?: string;
@@ -64,6 +65,7 @@ export default function QuestionnaireBuilder({
   const [process, setProcess] = useState<any>(null);
   const [template, setTemplate] = useState<QuestionnaireTemplate>({
     title: '',
+    description: null,
     process_type: '',
     fields: []
   });
@@ -77,7 +79,6 @@ export default function QuestionnaireBuilder({
       setIsLoading(true);
       
       try {
-        // Verificar autenticação
         const { data: { session } } = await supabase.auth.getSession();
         
         if (!session) {
@@ -85,7 +86,6 @@ export default function QuestionnaireBuilder({
           return;
         }
         
-        // Buscar dados do processo
         const { data: processData, error: processError } = await supabase
           .from('processes')
           .select('*')
@@ -101,7 +101,6 @@ export default function QuestionnaireBuilder({
         
         setProcess(processData);
         
-        // Buscar template existente para o tipo de processo
         const { data: templateData, error: templateError } = await supabase
           .from('questionnaire_templates')
           .select('*')
@@ -109,11 +108,15 @@ export default function QuestionnaireBuilder({
           .single();
         
         if (templateData) {
-          setTemplate(templateData);
+          const parsedFields = templateData.fields as unknown as QuestionField[];
+          setTemplate({
+            ...templateData,
+            fields: Array.isArray(parsedFields) ? parsedFields : []
+          });
         } else {
-          // Inicializar template vazio com o tipo do processo
           setTemplate({
             title: `Questionário - ${processData.process_type}`,
+            description: null,
             process_type: processData.process_type,
             fields: []
           });
@@ -313,37 +316,25 @@ export default function QuestionnaireBuilder({
     setSaveStatus('idle');
     
     try {
-      // Se já existe um ID, atualizar registro, senão criar novo
+      const templateData = {
+        title: template.title,
+        description: template.description,
+        process_type: template.process_type,
+        fields: template.fields as unknown as Json
+      };
+
       const { error } = template.id
         ? await supabase
             .from('questionnaire_templates')
-            .update({
-              title: template.title,
-              description: template.description,
-              fields: template.fields,
-              updated_at: new Date().toISOString()
-            })
+            .update(templateData)
             .eq('id', template.id)
         : await supabase
             .from('questionnaire_templates')
-            .insert({
-              title: template.title,
-              description: template.description,
-              process_type: template.process_type,
-              fields: template.fields
-            });
+            .insert(templateData);
       
-      if (error) {
-        console.error('Erro ao salvar template de questionário:', error);
-        setSaveStatus('error');
-      } else {
-        setSaveStatus('success');
-        
-        // Reset status after 3 seconds
-        setTimeout(() => {
-          setSaveStatus('idle');
-        }, 3000);
-      }
+      if (error) throw error;
+      setSaveStatus('success');
+      setTimeout(() => setSaveStatus('idle'), 3000);
     } catch (error) {
       console.error('Erro:', error);
       setSaveStatus('error');

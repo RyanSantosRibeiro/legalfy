@@ -5,15 +5,10 @@ import { FileText, Upload, Trash2, Eye, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/utils/supabase/client';
 import { toast } from 'sonner';
+import { Database } from '@/types/supabase';
 
-interface ProcessDocument {
-  id: string;
-  name: string;
-  file_path: string;
-  file_type: string;
-  file_size: number;
-  created_at: string;
-}
+type ProcessDocument = Database['public']['Tables']['process_documents']['Row'];
+type ProcessDocumentInsert = Database['public']['Tables']['process_documents']['Insert'];
 
 interface ProcessDocumentsProps {
   processId: string;
@@ -27,7 +22,7 @@ export default function ProcessDocuments({ processId, processKey }: ProcessDocum
 
   useEffect(() => {
     fetchDocuments();
-  }, []);
+  }, [processId]);
 
   const fetchDocuments = async () => {
     const { data, error } = await supabase
@@ -72,20 +67,27 @@ export default function ProcessDocuments({ processId, processKey }: ProcessDocum
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `${processKey}/${Date.now()}.${fileExt}`;
-      const { error: uploadError, data } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from('process-documents')
         .upload(fileName, file);
 
       if (uploadError) throw uploadError;
 
-      const { error: dbError } = await supabase.from('process_documents').insert({
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Usuário não autenticado');
+
+      const newDocument: ProcessDocumentInsert = {
         process_id: processId,
         name: file.name,
         file_path: fileName,
         file_type: file.type,
         file_size: file.size,
-        uploaded_by: (await supabase.auth.getUser()).data.user?.id
-      });
+        uploaded_by: user.id
+      };
+
+      const { error: dbError } = await supabase
+        .from('process_documents')
+        .insert(newDocument);
 
       if (dbError) throw dbError;
 

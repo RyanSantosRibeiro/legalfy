@@ -12,7 +12,7 @@ import {
   Clock, 
   ArrowRight 
 } from 'lucide-react';
-import Button from '@/components/ui/Button';
+import { Button }  from '@/components/ui/button';
 
 export default function HomePage() {
   const heroRef = useRef<HTMLElement>(null);
@@ -61,12 +61,13 @@ export default function HomePage() {
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
             <Button 
+              variant="default"
               className="bg-navy hover:bg-navy/90 text-white"
             >
               Start Free Trial
             </Button>
-            <Button 
-              variant="slim" 
+            <Button
+              variant="outline"
               className="border border-navy text-navy hover:bg-navy/5"
             >
               See How It Works
@@ -185,6 +186,7 @@ export default function HomePage() {
           <div className="mt-16 text-center animate-on-scroll">
             <Link href="/dashboard">
               <Button 
+                variant="default"
                 className="bg-navy hover:bg-navy/90 text-white"
               >
                 Explore All Features <ArrowRight size={16} className="ml-2" />
@@ -292,6 +294,7 @@ export default function HomePage() {
               </ul>
               
               <Button 
+                variant="default"
                 className="w-full bg-navy hover:bg-navy/90 text-white"
               >
                 Start Free Trial
@@ -336,6 +339,7 @@ export default function HomePage() {
               </ul>
               
               <Button 
+                variant="default"
                 className="w-full bg-navy hover:bg-navy/90 text-white"
               >
                 Start Free Trial
@@ -380,6 +384,7 @@ export default function HomePage() {
               </ul>
               
               <Button 
+                variant="default"
                 className="w-full bg-navy hover:bg-navy/90 text-white"
               >
                 Contact Sales
@@ -401,12 +406,13 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button 
+              variant="default"
               className="bg-white text-navy hover:bg-gray-100"
             >
               Start Free 14-Day Trial
             </Button>
-            <Button 
-              variant="slim"
+            <Button
+              variant="outline"
               className="border border-white text-white hover:bg-white/10"
             >
               Schedule a Demo

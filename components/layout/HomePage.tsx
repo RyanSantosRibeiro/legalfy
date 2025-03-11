@@ -12,7 +12,7 @@ import {
   Clock, 
   ArrowRight 
 } from 'lucide-react';
-import Button from '@/components/ui/Button';
+import { Button }  from '@/components/ui/button';
 import Navbar from '@/components/ui/Navbar/Navbar';
 import Footer from '@/components/layout/Footer';
 
@@ -69,7 +69,7 @@ export default function HomePage() {
               Start Free Trial
             </Button>
             <Button 
-              variant="slim" 
+              variant="outline"
               className="border border-navy text-navy hover:bg-navy/5"
             >
               See How It Works
@@ -404,12 +404,13 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button 
+              variant="default"
               className="bg-white text-navy hover:bg-gray-100"
             >
               Start Free 14-Day Trial
             </Button>
             <Button 
-              variant="slim"
+              variant="outline"
               className="border border-white text-white hover:bg-white/10"
             >
               Schedule a Demo

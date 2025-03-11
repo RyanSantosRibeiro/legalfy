@@ -107,23 +107,23 @@ export default async function FilteredDashboardPage({
   }
   
   // Get counts for statistics
-  const { data: activeCount } = await supabase
+  const { count: activeCount } = await supabase
     .from('processes')
-    .select('id', { count: 'exact', head: true })
+    .select('*', { count: 'exact', head: true })
     .eq('lawyer_id', user.id)
     .eq('process_type', filterType)
     .in('status', ['active', 'pending']);
     
-  const { data: closedCount } = await supabase
+  const { count: closedCount } = await supabase
     .from('processes')
-    .select('id', { count: 'exact', head: true })
+    .select('*', { count: 'exact', head: true })
     .eq('lawyer_id', user.id)
     .eq('process_type', filterType)
     .eq('status', 'closed');
     
-  const { data: preFilingCount } = await supabase
+  const { count: preFilingCount } = await supabase
     .from('processes')
-    .select('id', { count: 'exact', head: true })
+    .select('*', { count: 'exact', head: true })
     .eq('lawyer_id', user.id)
     .eq('process_type', filterType)
     .eq('status', 'pre-filing');
@@ -166,17 +166,17 @@ export default async function FilteredDashboardPage({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <StatCard 
           title="Active Cases" 
-          value={activeCount?.count || 0} 
+          value={activeCount || 0} 
           icon={<FileText className="text-navy" size={24} />} 
         />
         <StatCard 
           title="Closed Cases" 
-          value={closedCount?.count || 0} 
+          value={closedCount || 0} 
           icon={<CheckCircle className="text-navy" size={24} />} 
         />
         <StatCard 
           title="Pre-Filing" 
-          value={preFilingCount?.count || 0} 
+          value={preFilingCount || 0} 
           icon={<Clock className="text-navy" size={24} />} 
         />
       </div>
